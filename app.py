@@ -7,6 +7,8 @@ var1 = "Undefined"
 var2 = "Undefined"
 var3 = "Undefined"
 
+APP_PORT = 7700
+
 if path.exists("config.ini"):
     configParser = SafeConfigParser()
     configParser.read("config.ini")
@@ -20,7 +22,13 @@ if path.exists("config.ini"):
     if configParser.has_option("Default", "VARIABLE_2"):
         var2 = configParser.get("Default", "VARIABLE_2")
 
-var3 = environ.get("VARIABLE3")
+    if configParser.has_option("Default", "APP_PORT"):
+        APP_PORT = configParser.get("Default", "APP_PORT")
+
+if "VARIABLE3" in environ:
+    var3 = environ.get("VARIABLE3")
+if "APP_PORT" in environ:
+    APP_PORT = environ.get("APP_PORT")
 
 app = Flask(__name__)
 
