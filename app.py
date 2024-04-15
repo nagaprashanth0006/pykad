@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from configparser import SafeConfigParser
 from os import environ, path
 
@@ -28,7 +28,7 @@ if path.exists("config.ini"):
 if "VARIABLE3" in environ:
     var3 = environ.get("VARIABLE3")
 if "APP_PORT" in environ:
-    APP_PORT = environ.get("APP_PORT")
+    APP_PORT = environ.get("APP_PORT").strip()
 
 app = Flask(__name__)
 
@@ -46,13 +46,18 @@ def api1():
 
 @app.route("/api/v1/api2")
 def api2():
-    pass
+    svc_name = request.args.get("service")
+    svc_param = request.args.get("param")
+    if svc_param and svc_name:
+        svc_url = f"http://{svc_name}/api/v1/api1/{svc_param}"
+        response = request.get(svc_url)
+        return response.text
 
 
 @app.route("/")
 @app.route("/dashboard")
 def dashboard():
-    pass
+    return jsonify({"role": role, "message": "App running"})
 
 
 @app.route("/health")
@@ -61,4 +66,4 @@ def health():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=7700)
+    app.run(host="0.0.0.0", port=int(APP_PORT))
