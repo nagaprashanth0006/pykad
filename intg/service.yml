@@ -9,4 +9,4 @@ spec:
   ports:
   - port: 7700
     targetPort: 7700
-    nodePort: 300001
+    nodePort: 30001
