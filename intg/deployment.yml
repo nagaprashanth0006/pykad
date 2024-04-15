@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pykad
+spec:
+  selector:
+    matchLabels:
+      app: pykad
+  template:
+    metadata:
+      labels:
+        app: pykad
+    spec:
+      containers:
+      - name: pykad
+        image: nagaprashanth0006/pykad:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 7700
