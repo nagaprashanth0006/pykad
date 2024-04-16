@@ -1,6 +1,11 @@
 from flask import Flask, jsonify, request
 from configparser import SafeConfigParser
 from os import environ, path
+from sys import argv
+
+params = "None Given"
+if len(argv) > 1:
+    params = " ".join(argv[1:])
 
 role = "Undefined"
 var1 = "Undefined"
@@ -40,6 +45,7 @@ def api1():
         "variable1": var1,
         "variable2": var2,
         "variable3": var3,
+        "parameters": params,
     }
     return jsonify(json_response)
 
