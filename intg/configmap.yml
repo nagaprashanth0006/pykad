@@ -11,4 +11,4 @@ kind: ConfigMap
 metadata:
   name: pykad-config-map2
 data:
-  APP_PORT: "7799"
+  PYKAD_PORT: "7799"
