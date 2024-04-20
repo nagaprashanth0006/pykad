@@ -17,6 +17,11 @@ spec:
         env:
         - name: VARIABLE3
           value: "Value set from deployment.yml file"
+        - name: SECRET_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: pykad-secret1
+              key: VAR2_SEC_VAL
         - name: APP_PORT
           valueFrom:
             configMapKeyRef:

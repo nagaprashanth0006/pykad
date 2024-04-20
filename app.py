@@ -4,7 +4,12 @@ from os import environ, path
 from sys import argv, stdout
 import logging
 
-logging.basicConfig(level=logging.DEBUG, stream=stdout)
+logging.basicConfig(
+    filename="pykad_app.log",
+    level=logging.INFO,
+    format="[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s",
+    datefmt="%H:%M:%S",
+)
 
 """
 1. Initialize variables with "Undefined"
@@ -37,6 +42,8 @@ if path.exists("config.ini"):
     if configParser.has_option("Default", "APP_PORT"):
         APP_PORT = configParser.get("Default", "APP_PORT")
 
+if "VARIABLE2" in environ:
+    var3 = environ.get("VARIABLE2")
 if "VARIABLE3" in environ:
     var3 = environ.get("VARIABLE3")
 if "APP_PORT" in environ:
