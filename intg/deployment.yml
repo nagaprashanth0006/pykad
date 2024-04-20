@@ -17,9 +17,14 @@ spec:
         env:
         - name: VARIABLE3
           value: "Value set from deployment.yml file"
-        envFrom:
         - name: APP_PORT
-          value: 7799
+          valueFrom:
+            configMapKeyRef:
+              name: pykad-config-map2
+              key: PYKAD_PORT
+        envFrom:
+        - configMapRef:
+            name: pykad-config-map1
         resources:
           limits:
             memory: "128Mi"

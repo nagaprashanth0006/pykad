@@ -1,6 +1,14 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: pykad_config_map1
+  name: pykad-config-map1
 data:
   VARIABLE3: "Value Set from configmap yaml file"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pykad-config-map2
+data:
+  APP_PORT: "7799"
