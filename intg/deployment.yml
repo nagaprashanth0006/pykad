@@ -17,9 +17,12 @@ spec:
         env:
         - name: VARIABLE3
           value: "Value set from deployment.yml file"
+        envFrom:
+        - name: APP_PORT
+          value: 7799
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: 7700
+        - containerPort: 7799

@@ -7,6 +7,6 @@ spec:
   selector:
     app: pykad
   ports:
-  - port: 7700
-    targetPort: 7700
+  - port: 7799
+    targetPort: 7799
     nodePort: 30001

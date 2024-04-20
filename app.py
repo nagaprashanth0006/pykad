@@ -1,17 +1,24 @@
 from flask import Flask, jsonify, request
 from configparser import SafeConfigParser
 from os import environ, path
-from sys import argv
+from sys import argv, stdout
+import logging
+
+logging.basicConfig(level=logging.DEBUG, stream=stdout)
+
+"""
+1. Initialize variables with "Undefined"
+    or any other values within script
+2. config.ini file
+3. Env variables
+4. params to program
+"""
 
 params = "None Given"
-if len(argv) > 1:
-    params = " ".join(argv[1:])
-
 role = "Undefined"
 var1 = "Undefined"
 var2 = "Undefined"
 var3 = "Undefined"
-
 APP_PORT = 7700
 
 if path.exists("config.ini"):
@@ -34,6 +41,12 @@ if "VARIABLE3" in environ:
     var3 = environ.get("VARIABLE3")
 if "APP_PORT" in environ:
     APP_PORT = environ.get("APP_PORT").strip()
+
+if len(argv) > 1:
+    params = " ".join(argv[1:])
+    for param in params.split(" "):
+        if "role=" in param:
+            role = param.split("=")[-1].strip()
 
 app = Flask(__name__)
 
@@ -72,4 +85,5 @@ def health():
 
 
 if __name__ == "__main__":
+    app.logger.info(f"Starting app on port:{APP_PORT}")
     app.run(host="0.0.0.0", port=int(APP_PORT))
