@@ -3,6 +3,7 @@ from configparser import SafeConfigParser
 from os import environ, path
 from sys import argv, stdout
 import logging
+from requests import get
 
 logging.basicConfig(
     filename="pykad_app.log",
@@ -74,9 +75,13 @@ def api1():
 def api2():
     svc_name = request.args.get("service")
     svc_param = request.args.get("param")
+    print(svc_name, svc_param)
     if svc_param and svc_name:
-        svc_url = f"http://{svc_name}/api/v1/api1/{svc_param}"
-        response = request.get(svc_url)
+        # https://www.google.com/search?q=kubernetes
+        #svc_url = f"http://{svc_name}/api/v1/api1/{svc_param}"
+        svc_url = f"https://www.{svc_name}.com/search?q={svc_param}"
+        print(svc_url)
+        response = get(svc_url, headers={'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0"})
         return response.text
 
 
