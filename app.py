@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from configparser import SafeConfigParser
-from os import environ, path
+from os import environ, path, system
 from sys import argv, stdout
 import logging
 from requests import get
@@ -44,7 +44,7 @@ if path.exists("config.ini"):
         APP_PORT = configParser.get("Default", "APP_PORT")
 
 if "VARIABLE2" in environ:
-    var3 = environ.get("VARIABLE2")
+    var2 = environ.get("VARIABLE2")
 if "VARIABLE3" in environ:
     var3 = environ.get("VARIABLE3")
 if "APP_PORT" in environ:
@@ -78,11 +78,22 @@ def api2():
     print(svc_name, svc_param)
     if svc_param and svc_name:
         # https://www.google.com/search?q=kubernetes
-        #svc_url = f"http://{svc_name}/api/v1/api1/{svc_param}"
+        # svc_url = f"http://{svc_name}/api/v1/api1/{svc_param}"
         svc_url = f"https://www.{svc_name}.com/search?q={svc_param}"
         print(svc_url)
-        response = get(svc_url, headers={'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0"})
+        response = get(
+            svc_url,
+            headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0"
+            },
+        )
         return response.text
+
+
+@app.route("/api/v1/env")
+def show_env():
+    env_vars = system("set")
+    return f"<p>{env_vars}</p>"
 
 
 @app.route("/")
