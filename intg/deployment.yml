@@ -17,7 +17,7 @@ spec:
         env:
         - name: VARIABLE3
           value: "Value set from deployment.yml file"
-        - name: SECRET_USERNAME
+        - name: VARIABLE2
           valueFrom:
             secretKeyRef:
               name: pykad-secret1
