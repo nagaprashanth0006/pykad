@@ -1,1 +1,2 @@
-var3_val: "Value Set from configmap yaml file"
+var3_val: "Value Set from helm values file"
+app_port: "7799"
