@@ -6,7 +6,7 @@ import logging
 from requests import get
 
 logging.basicConfig(
-    filename="pykad_app.log",
+    filename="logs/pykad_app.log",
     level=logging.INFO,
     format="[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s",
     datefmt="%H:%M:%S",
@@ -27,7 +27,7 @@ var2 = "Undefined"
 var3 = "Undefined"
 APP_PORT = 7700
 
-if path.exists("config.ini"):
+if path.exists("configs/config.ini"):
     configParser = SafeConfigParser()
     configParser.read("config.ini")
 

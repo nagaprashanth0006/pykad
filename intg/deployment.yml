@@ -14,7 +14,9 @@ spec:
       containers:
       - name: pykad
         image: nagaprashanth0006/pykad:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
+        command: ["python3"]
+        args: ["/app/app.py", "param1=value1", "anotherParam", "lastOneYaar"]
         env:
         - name: VARIABLE3
           value: "Value set from deployment.yml file"
@@ -35,5 +37,42 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
+        
+        ports:
+        - containerPort: 7798
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask1
+spec:
+  selector:
+    matchLabels:
+      app: flask1
+  template:
+    metadata:
+      labels:
+        app: flask1
+    spec:
+      volumes:
+        - name: config-directory
+          hostPath:
+            path: "/mnt/C/Users/nagap/dev/k8s-pvc/config"
+            #path: "C:\\Users\\nagap\\dev\\k8s-pvc\\config"
+      containers:
+      - name: flask1
+        image: nagaprashanth0006/pykad:latest
+        volumeMounts:
+          - mountPath: "/app/configs"
+            name: config-directory
+        imagePullPolicy: Always
+        command: ["python3"]
+        args: ["/app/app.py", "role=FlaskApp"]
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        
         ports:
         - containerPort: 7799
